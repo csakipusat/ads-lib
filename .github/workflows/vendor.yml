@@ -1,0 +1,40 @@
+name: Generate Vendor
+
+# Trigger workflow saat push ke main atau manual run
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+
+      # 3. Install Composer dependencies
+      - name: Install Composer dependencies
+        run: composer install --no-dev --prefer-dist
+
+      # 4. Zip vendor folder
+      - name: Zip vendor folder
+        run: |
+          zip -r vendor.zip vendor
+
+      # 5. Upload artifact vendor.zip
+      - name: Upload vendor.zip artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vendor
+          path: vendor.zip

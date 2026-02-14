@@ -1,6 +1,5 @@
 name: Generate Vendor
 
-# Trigger workflow saat push ke main atau manual run
 on:
   push:
     branches:
@@ -29,12 +28,11 @@ jobs:
 
       # 4. Zip vendor folder
       - name: Zip vendor folder
-        run: |
-          zip -r vendor.zip vendor
+        run: zip -r vendor.zip vendor
 
-      # 5. Upload artifact vendor.zip
-- name: Upload vendor.zip artifact
-  uses: actions/upload-artifact@v4
-  with:
-    name: vendor
-    path: vendor.zip
+      # 5. Upload vendor.zip as artifact
+      - name: Upload vendor.zip artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vendor
+          path: vendor.zip

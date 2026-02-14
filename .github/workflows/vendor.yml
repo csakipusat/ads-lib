@@ -33,8 +33,8 @@ jobs:
           zip -r vendor.zip vendor
 
       # 5. Upload artifact vendor.zip
-      - name: Upload vendor.zip artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: vendor
-          path: vendor.zip
+- name: Upload vendor.zip artifact
+  uses: actions/upload-artifact@v4
+  with:
+    name: vendor
+    path: vendor.zip
